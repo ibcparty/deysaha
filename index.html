@@ -1,201 +1,164 @@
 <!doctype html>
-<html lang="bn">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>DeySaha — World of Businesses</title>
-  <meta name="description" content="DeySaha Empire — Official site prototype" />
+  <title>DeySaha — DeySaha Empire</title>
+  <meta name="description" content="DeySaha Empire — Official prototype" />
   <style>
+    /* ===========================
+       DeySaha Single-file Theme
+       Colors derived from ID Card:
+       Cream: #F3E9E1
+       Border: #D7C7B8
+       Header Brown: #A89380
+       Text Dark Brown: #4A3F36
+       Dey(red): #D64545
+       Saha(blue): #325DCC
+       =========================== */
+
     :root{
-      --bg:#0f1724;
-      --card:#0b1220;
-      --muted:#93a3b5;
-      --accent:#ff3b3b; /* Dey (red) */
-      --accent2:#2f6bff; /* Saha (blue) */
-      --glass: rgba(255,255,255,0.04);
-      --glass-2: rgba(255,255,255,0.02);
+      --cream: #F3E9E1;
+      --border: #D7C7B8;
+      --header-brown: #A89380;
+      --text-dark: #4A3F36;
+      --dey-red: #D64545;
+      --saha-blue: #325DCC;
+      --card-white: #ffffff;
+      --glass-alpha: rgba(255,255,255,0.92);
       --maxw:1100px;
-      --radius:14px;
-      font-family: "Inter", system-ui, -apple-system, "Noto Sans Bengali", sans-serif;
-    }
-    html,body{height:100%;}
-    body{
-      margin:0;
-      background: linear-gradient(180deg,#071427 0%, #071827 60%);
-      color:#e6eef6;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      padding:32px;
-      box-sizing:border-box;
+      --radius:12px;
+      --transition: .18s ease;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", "Helvetica", Arial;
+      color-scheme: light;
     }
 
-    /* Container */
-    .wrap{
-      max-width:var(--maxw);
-      margin:0 auto;
-    }
+    /* Basic reset */
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; margin:0; background:var(--cream); color:var(--text-dark); -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
+    a{ color:inherit; text-decoration:none; }
+
+    /* Layout container */
+    .wrap{ max-width:var(--maxw); margin:28px auto; padding:18px; }
 
     /* Header */
-    header{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      margin-bottom:28px;
-    }
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      text-decoration:none;
-      cursor:pointer;
-    }
-    .logo{
-      font-size:26px;
-      font-weight:700;
-      letter-spacing:0.6px;
-    }
-    .logo .dey{ color:var(--accent); }
-    .logo .saha{ color:var(--accent2); margin-left:4px; }
-    .subtext{ color:var(--muted); font-size:12px; margin-top:4px; }
+    header{ display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px; background:linear-gradient(90deg, rgba(168,147,128,0.98), rgba(168,147,128,0.95)); border-radius:10px; border:1px solid var(--border); }
+    .brand { display:flex; align-items:center; gap:12px; cursor:pointer; }
+    .brand .logo { font-weight:800; font-size:22px; letter-spacing:.4px; }
+    .brand .logo .dey { color:var(--dey-red); }
+    .brand .logo .saha { color:var(--saha-blue); margin-left:6px; }
+    .brand small { display:block; font-size:12px; color:rgba(74,63,54,0.9); margin-top:2px; }
 
-    nav{
-      display:flex;
-      align-items:center;
-      gap:12px;
-    }
-    .btn{
-      background:var(--glass);
-      color:inherit;
-      border:1px solid rgba(255,255,255,0.04);
+    nav{ display:flex; gap:10px; align-items:center; }
+    .btn {
+      background:transparent;
+      border:1px solid rgba(0,0,0,0.04);
       padding:10px 14px;
       border-radius:10px;
       cursor:pointer;
-      backdrop-filter: blur(6px);
-      transition:transform .14s ease, box-shadow .14s ease;
-      font-weight:600;
+      font-weight:700;
+      transition: transform var(--transition), box-shadow var(--transition);
+      background: rgba(255,255,255,0.6);
+      color:var(--text-dark);
     }
-    .btn:hover{ transform:translateY(-4px); box-shadow: 0 6px 18px rgba(0,0,0,0.5); }
+    .btn:hover{ transform:translateY(-4px); box-shadow:0 8px 18px rgba(0,0,0,0.08); }
 
-    /* World dropdown / slide */
-    .world-wrap{ position:relative; }
-    .world-panel{
+    /* HERO */
+    .hero { margin-top:18px; background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.92)); border-radius:10px; padding:20px; border:1px solid var(--border); display:flex; gap:20px; align-items:center; box-shadow: 0 12px 30px rgba(10,10,10,0.04); }
+    .hero .left { flex:1; }
+    .hero h1{ margin:0; font-size:28px; color:var(--text-dark); }
+    .hero p{ margin:8px 0 0; color:rgba(74,63,54,0.9); }
+
+    /* sections */
+    .section { display:none; margin-top:18px; background:var(--card-white); border-radius:10px; padding:16px; border:1px solid var(--border); box-shadow: 0 6px 18px rgba(10,10,10,0.03); }
+    .section.active { display:block; animation: fadeIn .2s ease; }
+
+    .title-row { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+    .title-row h2 { margin:0; font-size:20px; color:var(--text-dark); }
+
+    .card { margin-top:12px; padding:14px; background:var(--glass-alpha); border-radius:10px; border:1px solid var(--border); color:var(--text-dark); }
+
+    .small-muted { color: rgba(74,63,54,0.75); font-size:13px; }
+
+    /* World Panel (right side) */
+    .world-panel {
       position:fixed;
-      right:24px;
-      top:84px;
-      width:380px;
-      max-width:calc(100% - 48px);
+      right:22px;
+      top:90px;
+      width:420px;
+      max-width:calc(100% - 44px);
       height:72vh;
-      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border-radius:12px;
-      box-shadow:0 16px 40px rgba(2,6,23,0.7);
-      padding:14px;
+      border-radius:14px;
       overflow:auto;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      padding:12px;
+      z-index:120;
       transform: translateY(-10px) scale(.98);
       opacity:0;
       pointer-events:none;
       transition: all .22s cubic-bezier(.2,.9,.2,1);
-      border:1px solid rgba(255,255,255,0.03);
-      z-index:80;
+      border:1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,255,255,0.96));
     }
     .world-panel.open{
       transform:none;
       opacity:1;
       pointer-events:auto;
-    }
-    .world-panel h4{ margin:6px 0 10px; color:#cfe6ff; }
-    .company-list{ list-style:none; padding:0; margin:0; display:grid; grid-template-columns:1fr; gap:8px; }
-    .company-item{
-      background:linear-gradient(90deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));
-      padding:10px 12px;
-      border-radius:10px;
-      cursor:pointer;
-      border:1px solid rgba(255,255,255,0.02);
-      transition:transform .12s ease, background .12s ease;
-      font-weight:600;
-    }
-    .company-item:hover{ transform:translateX(6px); background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); }
-
-    /* Main hero */
-    .hero{
-      background: linear-gradient(90deg, rgba(15,23,36,0.6), rgba(8,12,20,0.6));
-      padding:28px;
-      border-radius:14px;
-      display:flex;
-      gap:20px;
-      align-items:center;
-      box-shadow: 0 10px 30px rgba(2,6,23,0.6);
-    }
-    .hero .left{ flex:1; }
-    .hero h1{ margin:0 0 6px; font-size:28px; line-height:1.05; }
-    .hero p{ margin:0; color:var(--muted); }
-
-    /* Content sections */
-    .section{
-      margin-top:22px;
-      display:none;
-      animation:fadeIn .26s ease;
-      padding:18px;
-      border-radius:12px;
-      background:var(--card);
-      border:1px solid rgba(255,255,255,0.02);
-    }
-    .section.active{ display:block; }
-
-    .section .title-row{
-      display:flex; align-items:center; justify-content:space-between; gap:8px;
-    }
-    .section h2{ margin:0; font-size:20px; }
-    .back-home{
-      background:transparent;
-      color:var(--muted);
-      border:1px solid rgba(255,255,255,0.03);
-      padding:8px 10px;
-      border-radius:8px;
-      cursor:pointer;
+      box-shadow: 0 18px 46px rgba(0,0,0,0.12);
     }
 
-    /* placeholder card inside section */
-    .card{
-      margin-top:12px;
-      padding:14px;
-      background:var(--glass-2);
-      border-radius:10px;
-      border:1px solid rgba(255,255,255,0.02);
-      color: #d7e9ff;
+    /* Backdrop blur layer when open */
+    .backdrop-veil {
+      position:fixed;
+      inset:0;
+      background: rgba(0,0,0,0.28);
+      backdrop-filter: blur(18px); /* strong blur as requested */
+      z-index:100;
+      opacity:0;
+      pointer-events:none;
+      transition: opacity .2s ease;
     }
+    .backdrop-veil.visible { opacity:1; pointer-events:auto; }
+
+    .world-head { font-weight:800; font-size:16px; color:var(--text-dark); }
+    .company-list { list-style:none; padding:0; margin:6px 0 24px 0; display:grid; gap:8px; }
+    .company-item {
+      display:flex; align-items:center; justify-content:space-between;
+      padding:10px 12px; border-radius:8px;
+      background: rgba(243,233,225,0.96);
+      border:1px solid var(--border);
+      cursor:pointer; transition: transform var(--transition), box-shadow var(--transition);
+      color:var(--text-dark); font-weight:700;
+    }
+    .company-item:hover { transform:translateX(6px); box-shadow: 0 8px 22px rgba(0,0,0,0.06); }
 
     /* footer */
-    footer{ margin-top:26px; color:var(--muted); font-size:13px; text-align:center; }
+    footer { margin-top:26px; color:rgba(74,63,54,0.8); text-align:center; font-size:13px; }
 
     /* responsive */
-    @media (max-width:720px){
-      header{ flex-direction:column; align-items:flex-start; gap:12px; }
+    @media (max-width:860px){
       .hero{ flex-direction:column; align-items:flex-start; }
-      .world-panel{ right:12px; left:12px; top:120px; width:auto; }
+      .world-panel { right:12px; left:12px; top:120px; width:auto; height:60vh; }
     }
 
-    @keyframes fadeIn { from{ opacity:0; transform: translateY(8px)} to{opacity:1; transform:none} }
+    @keyframes fadeIn { from{opacity:0; transform: translateY(8px)} to{opacity:1; transform:none} }
   </style>
 </head>
 <body>
   <div class="wrap">
-    <header>
-      <div style="display:flex;align-items:center;gap:12px;">
-        <a class="brand" id="brandBtn" tabindex="0" title="Go to DeySaha Home">
+    <!-- Header -->
+    <header role="banner">
+      <div class="brand" id="brandBtn" aria-label="Go to DeySaha Home" tabindex="0">
+        <div>
           <div class="logo"><span class="dey">Dey</span><span class="saha">Saha</span></div>
-          <div class="subtext">DeySaha Empire — Prototype</div>
-        </a>
+          <small>DEYSAHA EMPIRE — Prototype</small>
+        </div>
       </div>
 
-      <nav>
-        <div class="world-wrap">
-          <button class="btn" id="worldBtn" aria-expanded="false">World ▾</button>
-          <div class="world-panel" id="worldPanel" role="dialog" aria-hidden="true">
-            <h4>Our Businesses — Click to open a business</h4>
-            <ul class="company-list" id="companyList"></ul>
-          </div>
-        </div>
+      <nav role="navigation" aria-label="Main Navigation">
+        <button class="btn" id="worldBtn" aria-haspopup="dialog" aria-expanded="false">World ▾</button>
         <button class="btn" id="aboutBtn">About</button>
         <button class="btn" id="contactBtn">Contact</button>
       </nav>
@@ -203,65 +166,75 @@
 
     <!-- Hero / Home -->
     <main id="homeView">
-      <section class="hero">
+      <section class="hero" role="region" aria-labelledby="heroTitle">
         <div class="left">
-          <h1>Welcome to <span style="color:var(--accent)">Dey</span><span style="color:var(--accent2)">Saha</span></h1>
-          <p>Global multi-venture empire prototype. Click <strong>World</strong> to explore all sub-companies.</p>
+          <h1 id="heroTitle">Welcome to DeySaha</h1>
+          <p class="small-muted">A multi-venture empire prototype. Click <strong>World</strong> to explore all sub-companies and their pages.</p>
         </div>
-        <div style="min-width:220px;text-align:right;">
-          <div style="font-size:12px;color:var(--muted)">Status</div>
-          <div style="margin-top:8px;font-weight:700">Prototype • Single-page demo</div>
+        <div style="min-width:200px;text-align:right;">
+          <div class="small-muted">Prototype status</div>
+          <div style="font-weight:800; margin-top:6px;">Single-page demo • English content</div>
         </div>
       </section>
 
-      <div class="section active" id="introSection" style="display:block;">
+      <section class="section active" id="homeSection" aria-labelledby="homeHeading">
         <div class="title-row">
-          <h2>Quick Start</h2>
-          <button class="back-home" onclick="goHome()">Back to Home</button>
+          <h2 id="homeHeading">Quick Start</h2>
+          <div class="small-muted">Use the World menu to open a company page</div>
         </div>
         <div class="card">
-          এই সাইটের মাধ্যমে তুমি তোমার ৩৭টি সাব-কম্পানির প্রতিটা আলাদা পেজ দেখতে পারবে। World → সাবকোম্পানি নাম → ঐ কম্পানির মূল পেজ।<br><br>
-          এগুলো editable — চাইলে আমি প্রতিটি সেকশনে লোকেশন, কন্টাক্ট, ইমেইল, ছবি, PDF যোগ করে দেব।
+          This prototype contains 37 business entries. Open <strong>World</strong>, click any company name to view its dedicated page. Use the top <strong>DeySaha</strong> logo to return home at any time.
         </div>
-      </div>
+      </section>
     </main>
 
-    <!-- Company sections will be injected here -->
+    <!-- Dynamic Company Sections -->
     <div id="companySections"></div>
 
-    <!-- About -->
-    <div class="section" id="aboutSection">
+    <!-- About Section -->
+    <section class="section" id="aboutSection" aria-labelledby="aboutHeading">
       <div class="title-row">
-        <h2>About DeySaha</h2>
-        <button class="back-home" onclick="goHome()">Back to Home</button>
+        <h2 id="aboutHeading">About DeySaha</h2>
+        <button class="btn" onclick="goHome()">Back to Home</button>
       </div>
       <div class="card">
-        DeySaha — তোমার বিশ্বব্যাপী এম্পায়ারের নাম। এখানে তুমি ভবিষ্যতে প্রতিটি ব্যবসার বিস্তারিত, মিশন, কন্ট্যাক্ট ইনফো যুক্ত করতে পারবে।
+        DeySaha is a planned global multi-venture group. Each sub-company will have its own operations, team and contact details. This prototype demonstrates navigation and visual identity.
       </div>
-    </div>
+    </section>
 
-    <!-- Contact -->
-    <div class="section" id="contactSection">
+    <!-- Contact Section -->
+    <section class="section" id="contactSection" aria-labelledby="contactHeading">
       <div class="title-row">
-        <h2>Contact</h2>
-        <button class="back-home" onclick="goHome()">Back to Home</button>
+        <h2 id="contactHeading">Contact</h2>
+        <button class="btn" onclick="goHome()">Back to Home</button>
       </div>
       <div class="card">
         Email: <strong>contact@deysaha.com</strong><br>
         Phone: <strong>+91 00000 00000</strong> (placeholder)<br>
-        Address: <em>Proposed HQ, DeySaha Empire</em>
+        Address: Proposed Headquarters — DeySaha Empire
       </div>
-    </div>
+    </section>
 
     <footer>
-      Prototype — save this file as <code>index.html</code> and open in browser. পরবর্তীতে host করে তুমি ডোমেইনে সেটাপ করতে পারবে।
+      Prototype • Save this file as <code>index.html</code> and open in the browser.
     </footer>
   </div>
 
+  <!-- Backdrop veil & World Panel (outside main container for fixed positioning) -->
+  <div id="backdrop" class="backdrop-veil" aria-hidden="true"></div>
+
+  <aside id="worldPanel" class="world-panel" role="dialog" aria-modal="false" aria-hidden="true">
+    <div class="world-head">Our Businesses — Click any item to open its page</div>
+    <ul id="companyList" class="company-list" role="list"></ul>
+    <div style="margin-top:auto; font-size:13px; color:rgba(74,63,54,0.85);">
+      Tip: Use the DeySaha logo at top to return to Home.
+    </div>
+  </aside>
+
   <script>
-    /***********************
-     * List of 37 companies
-     ***********************/
+    /* ============================
+       Data: 37 companies (English)
+       ============================ */
     const companies = [
       "Property / Land Business",
       "Bar",
@@ -276,22 +249,22 @@
       "Data Server Business",
       "Aquarium Fish Business",
       "Premium Book Store",
-      "লবঙ্গ (Clove) Plant",
+      "Clove Plant",
       "Mushroom Business",
       "Temple Business",
       "Premium Cloth Business",
       "Tea Business (Golden Tips)",
       "Rare Candy Business",
-      "Japan/Korea Style Schools & University",
+      "Japan & Korea Style Schools and University",
       "MMA Gym",
-      "Icecream Business",
+      "Ice Cream Business",
       "Bay Leaf Farming",
       "International Port Business",
       "Cow & Milk Farm (Gosala)",
       "Residential Program",
       "Rich Rank Card (Elite Card)",
       "Wedding Hall Business",
-      "Tea & Milk Bun (Irani style) Business",
+      "Tea & Milk Bun (Irani style)",
       "Make DeySaha Empire (HQ)",
       "Magazine & Book Printing",
       "Colour World (Art materials)",
@@ -302,201 +275,122 @@
       "3D Museum"
     ];
 
-    // populate World panel list
     const companyListEl = document.getElementById('companyList');
     const sectionsContainer = document.getElementById('companySections');
 
+    // Create list & sections dynamically
     companies.forEach((name, idx) => {
+      // list item
       const li = document.createElement('li');
       li.className = 'company-item';
-      li.textContent = `${idx + 1}. ${name}`;
+      li.setAttribute('role','listitem');
+      li.innerHTML = `<span>${idx + 1}. ${name}</span><span style="opacity:.6;font-size:12px">Open</span>`;
       li.addEventListener('click', () => openCompany(idx));
       companyListEl.appendChild(li);
 
-      // create corresponding section (hidden by default)
-      const sec = document.createElement('div');
+      // section
+      const sec = document.createElement('section');
       sec.className = 'section';
       sec.id = 'company-' + idx;
+      sec.setAttribute('aria-labelledby', 'heading-' + idx);
       sec.innerHTML = `
         <div class="title-row">
-          <h2>${name}</h2>
+          <h2 id="heading-${idx}">${name}</h2>
           <div>
-            <button class="back-home" onclick="goHome()">Back to Home</button>
+            <button class="btn" onclick="goHome()">Back to Home</button>
           </div>
         </div>
         <div class="card">
-          <strong>${name}</strong> — এই পেজটি তোমার জন্য একটি ডামি / প্রটোটাইপ পেজ। এখানে তুমি ব্যবসার বিবরণ, সার্ভিস, ইমেইল, ফোন, লোকেশন, ছবি, PDF, products লিস্ট ইত্যাদি যোগ করতে পারবে।<br><br>
-          <em>Quick actions:</em>
-          <ul>
-            <li>অফিশিয়াল নাম: <code>${name}</code></li>
-            <li>Contact Email: <code>info@deysaha.com</code></li>
-            <li>অপারেশন স্ট্যাটাস: <strong>Planning</strong></li>
-          </ul>
+          <strong>${name}</strong><br><br>
+          Status: <strong>Planning</strong><br>
+          Short description: This is a prototype content area for <em>${name}</em>. You can add location, contact email, phone, images, PDF, product list and details here.<br><br>
+          Quick actions:<br>
+          • Official name: <code>${name}</code><br>
+          • Contact email: <code>info@deysaha.com</code><br>
+          • Operation: Planning<br><br>
           <div style="margin-top:10px;">
-            <button class="btn" onclick="alert('Edit feature: later')">Edit details</button>
-            <button class="btn" onclick="alert('Add media feature: later')">Add image / PDF</button>
+            <button class="btn" onclick="alert('Edit feature coming soon')">Edit Details</button>
+            <button class="btn" onclick="alert('Add media feature coming soon')">Add Image / PDF</button>
           </div>
         </div>
       `;
       sectionsContainer.appendChild(sec);
     });
 
-    /***********************
-     * UI interactions
-     ***********************/
+    /* =============================
+       UI Controls: world panel + backdrop
+       ============================= */
     const worldBtn = document.getElementById('worldBtn');
     const worldPanel = document.getElementById('worldPanel');
+    const backdrop = document.getElementById('backdrop');
     const brandBtn = document.getElementById('brandBtn');
     const aboutBtn = document.getElementById('aboutBtn');
     const contactBtn = document.getElementById('contactBtn');
 
-    worldBtn.addEventListener('click', () => {
-      const open = worldPanel.classList.toggle('open');
-      worldBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
-      worldPanel.setAttribute('aria-hidden', open ? 'false' : 'true');
-    });
-
-    // close world panel when clicking outside
-    document.addEventListener('click', (e) => {
-      if (!document.querySelector('.world-wrap').contains(e.target)) {
-        worldPanel.classList.remove('open');
-        worldBtn.setAttribute('aria-expanded','false');
-        worldPanel.setAttribute('aria-hidden','true');
-      }
-    });
-
-    // go home
-    function goHome(){
-      // hide all sections
-      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-      document.getElementById('introSection').classList.add('active');
-      // scroll to top
-      window.scrollTo({top:0,behavior:'smooth'});
+    function openWorld(){
+      worldPanel.classList.add('open');
+      backdrop.classList.add('visible');
+      worldBtn.setAttribute('aria-expanded','true');
+      worldPanel.setAttribute('aria-hidden','false');
+      backdrop.setAttribute('aria-hidden','false');
+      worldPanel.setAttribute('aria-modal','true');
     }
-
-    // open specific company page
-    function openCompany(idx){
-      // hide all
-      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-      // show the chosen
-      const id = 'company-' + idx;
-      const el = document.getElementById(id);
-      if (el){
-        el.classList.add('active');
-        // close world panel
-        worldPanel.classList.remove('open');
-        worldBtn.setAttribute('aria-expanded','false');
-        worldPanel.setAttribute('aria-hidden','true');
-        // scroll to section
-        setTimeout(()=> el.scrollIntoView({behavior:'smooth'}), 60);
-      }
+    function closeWorld(){
+      worldPanel.classList.remove('open');
+      backdrop.classList.remove('visible');
+      worldBtn.setAttribute('aria-expanded','false');
+      worldPanel.setAttribute('aria-hidden','true');
+      backdrop.setAttribute('aria-hidden','true');
+      worldPanel.setAttribute('aria-modal','false');
     }
+    worldBtn.addEventListener('click', (e) => {
+      const isOpen = worldPanel.classList.contains('open');
+      if(isOpen) closeWorld(); else openWorld();
+    });
+    // close when clicking backdrop
+    backdrop.addEventListener('click', closeWorld);
 
-    // header brand click => home
+    // brand -> go home
     brandBtn.addEventListener('click', (e) => { e.preventDefault(); goHome(); });
 
+    // about/contact buttons
     aboutBtn.addEventListener('click', () => {
-      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      hideAllSections();
       document.getElementById('aboutSection').classList.add('active');
-      window.scrollTo({top:0,behavior:'smooth'});
+      window.scrollTo({top:0, behavior:'smooth'});
     });
     contactBtn.addEventListener('click', () => {
-      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      hideAllSections();
       document.getElementById('contactSection').classList.add('active');
-      window.scrollTo({top:0,behavior:'smooth'});
+      window.scrollTo({top:0, behavior:'smooth'});
     });
 
-    // initial: show intro
-    goHome();
-
-    /* === Global Theme From ID Card === */
-
-    body {
-        background-color: #F3E9E1 !important;  /* Cream background */
-        color: #4A3F36 !important;             /* Dark brown text */
+    // hide all sections helper
+    function hideAllSections(){
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
     }
 
-    /* Top Navbar Background */
-    .navbar, header {
-       background-color: #A89380 !important;  /* Header brown */
+    // goHome
+    function goHome(){
+      hideAllSections();
+      document.getElementById('homeSection').classList.add('active');
+      closeWorld();
+      window.scrollTo({top:0, behavior:'smooth'});
     }
 
-    /* Primary section boxes */
-    .section, .card, .container {
-        background-color: #FFFFFF;
-        border: 1px solid #D7C7B8;             /* Soft beige border */
-         color: #4A3F36;
-    }
-
-    /* Headings */
-    h1, h2, h3, h4 {
-        color: #4A3F36 !important;
-    }
-
-    /* Buttons */
-    button, .btn {
-        background-color: #A89380 !important;
-        color: white !important;
-        border: none !important;
-    }
-
-    button:hover, .btn:hover {
-        background-color: #8A7A68 !important;
-    }
-
-    /* Links */
-    a {
-        color: #4A3F36 !important;
-    }
-    a:hover {
-        color: #7B6858 !important;
-    }
-
-    /* Footer */
-    footer {
-        background-color: #A89380 !important;
-        color: white !important;
-    }
-
-    /* ---------------------
-   DeySaha Theme Colors
-----------------------*/
-
-:root {
-    --primary-bg: #F5E9DD;   /* Light beige */
-    --secondary-bg: #B59C88; /* Brownish-taupe */
-    --primary-text: #2C2C2C;
-    --card-border: #D4C3B2;
-}
-
-/* Website Background */
-body {
-    background-color: var(--primary-bg) !important;
-    color: var(--primary-text);
-}
-
-/* Header Bar */
-nav, header {
-    background-color: var(--secondary-bg) !important;
-    border-bottom: 2px solid var(--card-border);
-}
-
-/* Cards */
-.card, .section-box, .business-box {
-    background-color: #ffffff;
-    border: 1px solid var(--card-border);
-    box-shadow: 0px 3px 10px rgba(0,0,0,0.08);
-    border-radius: 8px;
-}
-
-/* DeySaha logo text */
-.logo-text .dey {
-    color: #D64545 !important;  /* Red */
-}
-.logo-text .saha {
-    color: #325DCC !important;  /* Blue */
+    // open a company
+    function openCompany(idx){
+      hideAllSections();
+      const el = document.getElementById('company-' + idx);
+      if(el){
+        el.classList.add('active');
+        closeWorld();
+        setTimeout(()=> el.scrollIntoView({behavior:'smooth'}), 70);
       }
+    }
 
+    // initial state
+    goHome();
   </script>
 </body>
 </html>
