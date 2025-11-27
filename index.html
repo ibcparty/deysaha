@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="bn">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>DeySaha — World of Businesses</title>
+  <meta name="description" content="DeySaha Empire — Official site prototype" />
+  <style>
+    :root{
+      --bg:#0f1724;
+      --card:#0b1220;
+      --muted:#93a3b5;
+      --accent:#ff3b3b; /* Dey (red) */
+      --accent2:#2f6bff; /* Saha (blue) */
+      --glass: rgba(255,255,255,0.04);
+      --glass-2: rgba(255,255,255,0.02);
+      --maxw:1100px;
+      --radius:14px;
+      font-family: "Inter", system-ui, -apple-system, "Noto Sans Bengali", sans-serif;
+    }
+    html,body{height:100%;}
+    body{
+      margin:0;
+      background: linear-gradient(180deg,#071427 0%, #071827 60%);
+      color:#e6eef6;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      padding:32px;
+      box-sizing:border-box;
+    }
+
+    /* Container */
+    .wrap{
+      max-width:var(--maxw);
+      margin:0 auto;
+    }
+
+    /* Header */
+    header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:28px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      text-decoration:none;
+      cursor:pointer;
+    }
+    .logo{
+      font-size:26px;
+      font-weight:700;
+      letter-spacing:0.6px;
+    }
+    .logo .dey{ color:var(--accent); }
+    .logo .saha{ color:var(--accent2); margin-left:4px; }
+    .subtext{ color:var(--muted); font-size:12px; margin-top:4px; }
+
+    nav{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+    .btn{
+      background:var(--glass);
+      color:inherit;
+      border:1px solid rgba(255,255,255,0.04);
+      padding:10px 14px;
+      border-radius:10px;
+      cursor:pointer;
+      backdrop-filter: blur(6px);
+      transition:transform .14s ease, box-shadow .14s ease;
+      font-weight:600;
+    }
+    .btn:hover{ transform:translateY(-4px); box-shadow: 0 6px 18px rgba(0,0,0,0.5); }
+
+    /* World dropdown / slide */
+    .world-wrap{ position:relative; }
+    .world-panel{
+      position:fixed;
+      right:24px;
+      top:84px;
+      width:380px;
+      max-width:calc(100% - 48px);
+      height:72vh;
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:12px;
+      box-shadow:0 16px 40px rgba(2,6,23,0.7);
+      padding:14px;
+      overflow:auto;
+      transform: translateY(-10px) scale(.98);
+      opacity:0;
+      pointer-events:none;
+      transition: all .22s cubic-bezier(.2,.9,.2,1);
+      border:1px solid rgba(255,255,255,0.03);
+      z-index:80;
+    }
+    .world-panel.open{
+      transform:none;
+      opacity:1;
+      pointer-events:auto;
+    }
+    .world-panel h4{ margin:6px 0 10px; color:#cfe6ff; }
+    .company-list{ list-style:none; padding:0; margin:0; display:grid; grid-template-columns:1fr; gap:8px; }
+    .company-item{
+      background:linear-gradient(90deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));
+      padding:10px 12px;
+      border-radius:10px;
+      cursor:pointer;
+      border:1px solid rgba(255,255,255,0.02);
+      transition:transform .12s ease, background .12s ease;
+      font-weight:600;
+    }
+    .company-item:hover{ transform:translateX(6px); background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); }
+
+    /* Main hero */
+    .hero{
+      background: linear-gradient(90deg, rgba(15,23,36,0.6), rgba(8,12,20,0.6));
+      padding:28px;
+      border-radius:14px;
+      display:flex;
+      gap:20px;
+      align-items:center;
+      box-shadow: 0 10px 30px rgba(2,6,23,0.6);
+    }
+    .hero .left{ flex:1; }
+    .hero h1{ margin:0 0 6px; font-size:28px; line-height:1.05; }
+    .hero p{ margin:0; color:var(--muted); }
+
+    /* Content sections */
+    .section{
+      margin-top:22px;
+      display:none;
+      animation:fadeIn .26s ease;
+      padding:18px;
+      border-radius:12px;
+      background:var(--card);
+      border:1px solid rgba(255,255,255,0.02);
+    }
+    .section.active{ display:block; }
+
+    .section .title-row{
+      display:flex; align-items:center; justify-content:space-between; gap:8px;
+    }
+    .section h2{ margin:0; font-size:20px; }
+    .back-home{
+      background:transparent;
+      color:var(--muted);
+      border:1px solid rgba(255,255,255,0.03);
+      padding:8px 10px;
+      border-radius:8px;
+      cursor:pointer;
+    }
+
+    /* placeholder card inside section */
+    .card{
+      margin-top:12px;
+      padding:14px;
+      background:var(--glass-2);
+      border-radius:10px;
+      border:1px solid rgba(255,255,255,0.02);
+      color: #d7e9ff;
+    }
+
+    /* footer */
+    footer{ margin-top:26px; color:var(--muted); font-size:13px; text-align:center; }
+
+    /* responsive */
+    @media (max-width:720px){
+      header{ flex-direction:column; align-items:flex-start; gap:12px; }
+      .hero{ flex-direction:column; align-items:flex-start; }
+      .world-panel{ right:12px; left:12px; top:120px; width:auto; }
+    }
+
+    @keyframes fadeIn { from{ opacity:0; transform: translateY(8px)} to{opacity:1; transform:none} }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <a class="brand" id="brandBtn" tabindex="0" title="Go to DeySaha Home">
+          <div class="logo"><span class="dey">Dey</span><span class="saha">Saha</span></div>
+          <div class="subtext">DeySaha Empire — Prototype</div>
+        </a>
+      </div>
+
+      <nav>
+        <div class="world-wrap">
+          <button class="btn" id="worldBtn" aria-expanded="false">World ▾</button>
+          <div class="world-panel" id="worldPanel" role="dialog" aria-hidden="true">
+            <h4>Our Businesses — Click to open a business</h4>
+            <ul class="company-list" id="companyList"></ul>
+          </div>
+        </div>
+        <button class="btn" id="aboutBtn">About</button>
+        <button class="btn" id="contactBtn">Contact</button>
+      </nav>
+    </header>
+
+    <!-- Hero / Home -->
+    <main id="homeView">
+      <section class="hero">
+        <div class="left">
+          <h1>Welcome to <span style="color:var(--accent)">Dey</span><span style="color:var(--accent2)">Saha</span></h1>
+          <p>Global multi-venture empire prototype. Click <strong>World</strong> to explore all sub-companies.</p>
+        </div>
+        <div style="min-width:220px;text-align:right;">
+          <div style="font-size:12px;color:var(--muted)">Status</div>
+          <div style="margin-top:8px;font-weight:700">Prototype • Single-page demo</div>
+        </div>
+      </section>
+
+      <div class="section active" id="introSection" style="display:block;">
+        <div class="title-row">
+          <h2>Quick Start</h2>
+          <button class="back-home" onclick="goHome()">Back to Home</button>
+        </div>
+        <div class="card">
+          এই সাইটের মাধ্যমে তুমি তোমার ৩৭টি সাব-কম্পানির প্রতিটা আলাদা পেজ দেখতে পারবে। World → সাবকোম্পানি নাম → ঐ কম্পানির মূল পেজ।<br><br>
+          এগুলো editable — চাইলে আমি প্রতিটি সেকশনে লোকেশন, কন্টাক্ট, ইমেইল, ছবি, PDF যোগ করে দেব।
+        </div>
+      </div>
+    </main>
+
+    <!-- Company sections will be injected here -->
+    <div id="companySections"></div>
+
+    <!-- About -->
+    <div class="section" id="aboutSection">
+      <div class="title-row">
+        <h2>About DeySaha</h2>
+        <button class="back-home" onclick="goHome()">Back to Home</button>
+      </div>
+      <div class="card">
+        DeySaha — তোমার বিশ্বব্যাপী এম্পায়ারের নাম। এখানে তুমি ভবিষ্যতে প্রতিটি ব্যবসার বিস্তারিত, মিশন, কন্ট্যাক্ট ইনফো যুক্ত করতে পারবে।
+      </div>
+    </div>
+
+    <!-- Contact -->
+    <div class="section" id="contactSection">
+      <div class="title-row">
+        <h2>Contact</h2>
+        <button class="back-home" onclick="goHome()">Back to Home</button>
+      </div>
+      <div class="card">
+        Email: <strong>contact@deysaha.com</strong><br>
+        Phone: <strong>+91 00000 00000</strong> (placeholder)<br>
+        Address: <em>Proposed HQ, DeySaha Empire</em>
+      </div>
+    </div>
+
+    <footer>
+      Prototype — save this file as <code>index.html</code> and open in browser. পরবর্তীতে host করে তুমি ডোমেইনে সেটাপ করতে পারবে।
+    </footer>
+  </div>
+
+  <script>
+    /***********************
+     * List of 37 companies
+     ***********************/
+    const companies = [
+      "Property / Land Business",
+      "Bar",
+      "Petrol Pump",
+      "Keshar Plant",
+      "Builder",
+      "Political Scientist Services",
+      "House Designer",
+      "Web & App Designer",
+      "Artist Studio",
+      "Fresh Himalayan Water",
+      "Data Server Business",
+      "Aquarium Fish Business",
+      "Premium Book Store",
+      "লবঙ্গ (Clove) Plant",
+      "Mushroom Business",
+      "Temple Business",
+      "Premium Cloth Business",
+      "Tea Business (Golden Tips)",
+      "Rare Candy Business",
+      "Japan/Korea Style Schools & University",
+      "MMA Gym",
+      "Icecream Business",
+      "Bay Leaf Farming",
+      "International Port Business",
+      "Cow & Milk Farm (Gosala)",
+      "Residential Program",
+      "Rich Rank Card (Elite Card)",
+      "Wedding Hall Business",
+      "Tea & Milk Bun (Irani style) Business",
+      "Make DeySaha Empire (HQ)",
+      "Magazine & Book Printing",
+      "Colour World (Art materials)",
+      "Ramain Restaurant",
+      "Park Business",
+      "4D Cinema Hall",
+      "Crypto Coin (Eonix - EONX)",
+      "3D Museum"
+    ];
+
+    // populate World panel list
+    const companyListEl = document.getElementById('companyList');
+    const sectionsContainer = document.getElementById('companySections');
+
+    companies.forEach((name, idx) => {
+      const li = document.createElement('li');
+      li.className = 'company-item';
+      li.textContent = `${idx + 1}. ${name}`;
+      li.addEventListener('click', () => openCompany(idx));
+      companyListEl.appendChild(li);
+
+      // create corresponding section (hidden by default)
+      const sec = document.createElement('div');
+      sec.className = 'section';
+      sec.id = 'company-' + idx;
+      sec.innerHTML = `
+        <div class="title-row">
+          <h2>${name}</h2>
+          <div>
+            <button class="back-home" onclick="goHome()">Back to Home</button>
+          </div>
+        </div>
+        <div class="card">
+          <strong>${name}</strong> — এই পেজটি তোমার জন্য একটি ডামি / প্রটোটাইপ পেজ। এখানে তুমি ব্যবসার বিবরণ, সার্ভিস, ইমেইল, ফোন, লোকেশন, ছবি, PDF, products লিস্ট ইত্যাদি যোগ করতে পারবে।<br><br>
+          <em>Quick actions:</em>
+          <ul>
+            <li>অফিশিয়াল নাম: <code>${name}</code></li>
+            <li>Contact Email: <code>info@deysaha.com</code></li>
+            <li>অপারেশন স্ট্যাটাস: <strong>Planning</strong></li>
+          </ul>
+          <div style="margin-top:10px;">
+            <button class="btn" onclick="alert('Edit feature: later')">Edit details</button>
+            <button class="btn" onclick="alert('Add media feature: later')">Add image / PDF</button>
+          </div>
+        </div>
+      `;
+      sectionsContainer.appendChild(sec);
+    });
+
+    /***********************
+     * UI interactions
+     ***********************/
+    const worldBtn = document.getElementById('worldBtn');
+    const worldPanel = document.getElementById('worldPanel');
+    const brandBtn = document.getElementById('brandBtn');
+    const aboutBtn = document.getElementById('aboutBtn');
+    const contactBtn = document.getElementById('contactBtn');
+
+    worldBtn.addEventListener('click', () => {
+      const open = worldPanel.classList.toggle('open');
+      worldBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      worldPanel.setAttribute('aria-hidden', open ? 'false' : 'true');
+    });
+
+    // close world panel when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!document.querySelector('.world-wrap').contains(e.target)) {
+        worldPanel.classList.remove('open');
+        worldBtn.setAttribute('aria-expanded','false');
+        worldPanel.setAttribute('aria-hidden','true');
+      }
+    });
+
+    // go home
+    function goHome(){
+      // hide all sections
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      document.getElementById('introSection').classList.add('active');
+      // scroll to top
+      window.scrollTo({top:0,behavior:'smooth'});
+    }
+
+    // open specific company page
+    function openCompany(idx){
+      // hide all
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      // show the chosen
+      const id = 'company-' + idx;
+      const el = document.getElementById(id);
+      if (el){
+        el.classList.add('active');
+        // close world panel
+        worldPanel.classList.remove('open');
+        worldBtn.setAttribute('aria-expanded','false');
+        worldPanel.setAttribute('aria-hidden','true');
+        // scroll to section
+        setTimeout(()=> el.scrollIntoView({behavior:'smooth'}), 60);
+      }
+    }
+
+    // header brand click => home
+    brandBtn.addEventListener('click', (e) => { e.preventDefault(); goHome(); });
+
+    aboutBtn.addEventListener('click', () => {
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      document.getElementById('aboutSection').classList.add('active');
+      window.scrollTo({top:0,behavior:'smooth'});
+    });
+    contactBtn.addEventListener('click', () => {
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      document.getElementById('contactSection').classList.add('active');
+      window.scrollTo({top:0,behavior:'smooth'});
+    });
+
+    // initial: show intro
+    goHome();
+  </script>
+</body>
+</html>
