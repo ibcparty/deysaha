@@ -4,17 +4,17 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>DeySaha — DeySaha Empire</title>
-  <meta name="description" content="DeySaha Empire — Official prototype" />
+  <meta name="description" content="DeySaha Empire — Prototype / Multi-venture group" />
   <style>
     /* ===========================
-       DeySaha Single-file Theme
-       Colors derived from ID Card:
+       DEYSAHA — Single-file Site
+       Color palette (from ID Card)
        Cream: #F3E9E1
-       Border: #D7C7B8
+       Soft Border: #D7C7B8
        Header Brown: #A89380
-       Text Dark Brown: #4A3F36
-       Dey(red): #D64545
-       Saha(blue): #325DCC
+       Text Dark: #4A3F36
+       Dey (red): #D64545
+       Saha (blue): #325DCC
        =========================== */
 
     :root{
@@ -25,139 +25,123 @@
       --dey-red: #D64545;
       --saha-blue: #325DCC;
       --card-white: #ffffff;
-      --glass-alpha: rgba(255,255,255,0.92);
+      --panel-bg-alpha: rgba(255,255,255,0.95);
       --maxw:1100px;
       --radius:12px;
-      --transition: .18s ease;
-      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", "Helvetica", Arial;
-      color-scheme: light;
+      --ease: .18s ease;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", Helvetica, Arial;
     }
 
-    /* Basic reset */
-    *{ box-sizing:border-box; }
-    html,body{ height:100%; margin:0; background:var(--cream); color:var(--text-dark); -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
-    a{ color:inherit; text-decoration:none; }
+    /* Reset */
+    *{box-sizing:border-box;}
+    html,body{height:100%; margin:0; background:var(--cream); color:var(--text-dark); -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;}
+    a{color:inherit; text-decoration:none;}
 
-    /* Layout container */
+    /* Container */
     .wrap{ max-width:var(--maxw); margin:28px auto; padding:18px; }
 
     /* Header */
-    header{ display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px; background:linear-gradient(90deg, rgba(168,147,128,0.98), rgba(168,147,128,0.95)); border-radius:10px; border:1px solid var(--border); }
-    .brand { display:flex; align-items:center; gap:12px; cursor:pointer; }
-    .brand .logo { font-weight:800; font-size:22px; letter-spacing:.4px; }
-    .brand .logo .dey { color:var(--dey-red); }
-    .brand .logo .saha { color:var(--saha-blue); margin-left:6px; }
-    .brand small { display:block; font-size:12px; color:rgba(74,63,54,0.9); margin-top:2px; }
+    header{
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+      padding:14px; border-radius:10px;
+      background: linear-gradient(90deg, var(--header-brown), rgba(168,147,128,0.92));
+      border:1px solid var(--border);
+      box-shadow: 0 10px 26px rgba(0,0,0,0.06);
+    }
+    .brand{ display:flex; gap:12px; align-items:center; cursor:pointer; }
+    .logo { font-weight:800; font-size:22px; letter-spacing:.4px; }
+    .logo .dey{ color:var(--dey-red); }
+    .logo .saha{ color:var(--saha-blue); margin-left:6px; }
+    .brand small{ display:block; font-size:12px; color:rgba(74,63,54,0.9); margin-top:2px; }
 
     nav{ display:flex; gap:10px; align-items:center; }
-    .btn {
-      background:transparent;
-      border:1px solid rgba(0,0,0,0.04);
+    .btn{
+      background: rgba(255,255,255,0.9);
+      color:var(--text-dark);
       padding:10px 14px;
       border-radius:10px;
-      cursor:pointer;
+      border:1px solid var(--border);
       font-weight:700;
-      transition: transform var(--transition), box-shadow var(--transition);
-      background: rgba(255,255,255,0.6);
-      color:var(--text-dark);
+      cursor:pointer;
+      transition: transform var(--ease), box-shadow var(--ease);
     }
-    .btn:hover{ transform:translateY(-4px); box-shadow:0 8px 18px rgba(0,0,0,0.08); }
+    .btn:hover{ transform: translateY(-4px); box-shadow: 0 10px 24px rgba(0,0,0,0.08); }
 
-    /* HERO */
-    .hero { margin-top:18px; background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.92)); border-radius:10px; padding:20px; border:1px solid var(--border); display:flex; gap:20px; align-items:center; box-shadow: 0 12px 30px rgba(10,10,10,0.04); }
-    .hero .left { flex:1; }
+    /* Hero */
+    .hero{
+      margin-top:18px; padding:18px;
+      border-radius:10px; background:var(--panel-bg-alpha);
+      border:1px solid var(--border);
+      display:flex; gap:16px; align-items:center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+    }
     .hero h1{ margin:0; font-size:28px; color:var(--text-dark); }
     .hero p{ margin:8px 0 0; color:rgba(74,63,54,0.9); }
 
-    /* sections */
-    .section { display:none; margin-top:18px; background:var(--card-white); border-radius:10px; padding:16px; border:1px solid var(--border); box-shadow: 0 6px 18px rgba(10,10,10,0.03); }
-    .section.active { display:block; animation: fadeIn .2s ease; }
+    /* Sections & Cards */
+    .section{ display:none; margin-top:18px; background:var(--card-white); border-radius:10px; padding:16px; border:1px solid var(--border); box-shadow: 0 8px 20px rgba(0,0,0,0.03); }
+    .section.active{ display:block; animation: fadeIn .22s ease; }
+    .title-row{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
+    .title-row h2{ margin:0; font-size:20px; color:var(--text-dark); }
+    .card{ margin-top:12px; padding:14px; background:rgba(255,255,255,0.96); border-radius:10px; border:1px solid var(--border); color:var(--text-dark); }
 
-    .title-row { display:flex; align-items:center; justify-content:space-between; gap:12px; }
-    .title-row h2 { margin:0; font-size:20px; color:var(--text-dark); }
+    /* World Panel */
+    .backdrop {
+      position:fixed; inset:0; z-index:98;
+      background: rgba(0,0,0,0.36);
+      backdrop-filter: blur(18px);   /* STRONG BLUR */
+      opacity:0; pointer-events:none; transition: opacity .18s ease;
+    }
+    .backdrop.visible{ opacity:1; pointer-events:auto; }
 
-    .card { margin-top:12px; padding:14px; background:var(--glass-alpha); border-radius:10px; border:1px solid var(--border); color:var(--text-dark); }
-
-    .small-muted { color: rgba(74,63,54,0.75); font-size:13px; }
-
-    /* World Panel (right side) */
-    .world-panel {
-      position:fixed;
-      right:22px;
-      top:90px;
-      width:420px;
-      max-width:calc(100% - 44px);
-      height:72vh;
-      border-radius:14px;
-      overflow:auto;
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-      padding:12px;
-      z-index:120;
-      transform: translateY(-10px) scale(.98);
-      opacity:0;
-      pointer-events:none;
+    .world-panel{
+      position:fixed; top:80px; right:22px; z-index:100;
+      width:420px; max-width:calc(100% - 44px); height:72vh;
+      background: var(--panel-bg-alpha);
+      border-radius:14px; padding:14px; overflow:auto;
+      border:1px solid var(--border);
+      transform: translateY(-8px) scale(.98); opacity:0; pointer-events:none;
       transition: all .22s cubic-bezier(.2,.9,.2,1);
-      border:1px solid var(--border);
-      background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,255,255,0.96));
+      box-shadow: 0 18px 46px rgba(0,0,0,0.14);
     }
-    .world-panel.open{
-      transform:none;
-      opacity:1;
-      pointer-events:auto;
-      box-shadow: 0 18px 46px rgba(0,0,0,0.12);
-    }
+    .world-panel.open{ transform:none; opacity:1; pointer-events:auto; }
 
-    /* Backdrop blur layer when open */
-    .backdrop-veil {
-      position:fixed;
-      inset:0;
-      background: rgba(0,0,0,0.28);
-      backdrop-filter: blur(18px); /* strong blur as requested */
-      z-index:100;
-      opacity:0;
-      pointer-events:none;
-      transition: opacity .2s ease;
-    }
-    .backdrop-veil.visible { opacity:1; pointer-events:auto; }
-
-    .world-head { font-weight:800; font-size:16px; color:var(--text-dark); }
-    .company-list { list-style:none; padding:0; margin:6px 0 24px 0; display:grid; gap:8px; }
-    .company-item {
+    .world-head{ font-weight:800; color:var(--text-dark); margin-bottom:8px; }
+    .company-list{ list-style:none; margin:0; padding:0; display:grid; gap:8px; }
+    .company-item{
       display:flex; align-items:center; justify-content:space-between;
-      padding:10px 12px; border-radius:8px;
-      background: rgba(243,233,225,0.96);
-      border:1px solid var(--border);
-      cursor:pointer; transition: transform var(--transition), box-shadow var(--transition);
+      padding:12px; border-radius:10px; background:#ffffff; border:1px solid var(--border);
+      cursor:pointer; transition: transform .14s ease, box-shadow .14s ease;
       color:var(--text-dark); font-weight:700;
     }
-    .company-item:hover { transform:translateX(6px); box-shadow: 0 8px 22px rgba(0,0,0,0.06); }
+    .company-item:hover{ transform: translateX(8px); box-shadow: 0 10px 26px rgba(0,0,0,0.08); background:linear-gradient(90deg, rgba(243,233,225,1), rgba(250,245,240,1)); }
 
-    /* footer */
-    footer { margin-top:26px; color:rgba(74,63,54,0.8); text-align:center; font-size:13px; }
+    /* small helper */
+    .muted { color: rgba(74,63,54,0.8); font-size:13px; }
+
+    footer { margin-top:28px; text-align:center; color:rgba(74,63,54,0.85); font-size:13px; }
 
     /* responsive */
     @media (max-width:860px){
+      .world-panel{ right:12px; left:12px; top:120px; width:auto; height:60vh; }
       .hero{ flex-direction:column; align-items:flex-start; }
-      .world-panel { right:12px; left:12px; top:120px; width:auto; height:60vh; }
     }
 
-    @keyframes fadeIn { from{opacity:0; transform: translateY(8px)} to{opacity:1; transform:none} }
+    @keyframes fadeIn { from{ opacity:0; transform: translateY(8px) } to{ opacity:1; transform:none } }
   </style>
 </head>
 <body>
   <div class="wrap">
     <!-- Header -->
     <header role="banner">
-      <div class="brand" id="brandBtn" aria-label="Go to DeySaha Home" tabindex="0">
+      <div class="brand" id="brandBtn" aria-label="Go to Home" tabindex="0">
         <div>
           <div class="logo"><span class="dey">Dey</span><span class="saha">Saha</span></div>
           <small>DEYSAHA EMPIRE — Prototype</small>
         </div>
       </div>
 
-      <nav role="navigation" aria-label="Main Navigation">
+      <nav role="navigation" aria-label="Main">
         <button class="btn" id="worldBtn" aria-haspopup="dialog" aria-expanded="false">World ▾</button>
         <button class="btn" id="aboutBtn">About</button>
         <button class="btn" id="contactBtn">Contact</button>
@@ -166,47 +150,47 @@
 
     <!-- Hero / Home -->
     <main id="homeView">
-      <section class="hero" role="region" aria-labelledby="heroTitle">
-        <div class="left">
+      <section class="hero" aria-labelledby="heroTitle">
+        <div>
           <h1 id="heroTitle">Welcome to DeySaha</h1>
-          <p class="small-muted">A multi-venture empire prototype. Click <strong>World</strong> to explore all sub-companies and their pages.</p>
+          <p class="muted">A multi-venture empire prototype. Click <strong>World</strong> to explore all sub-companies.</p>
         </div>
-        <div style="min-width:200px;text-align:right;">
-          <div class="small-muted">Prototype status</div>
-          <div style="font-weight:800; margin-top:6px;">Single-page demo • English content</div>
+        <div style="margin-left:auto; text-align:right;">
+          <div class="muted">Prototype • Single-page demo</div>
+          <div style="font-weight:800; margin-top:6px;">English content</div>
         </div>
       </section>
 
-      <section class="section active" id="homeSection" aria-labelledby="homeHeading">
+      <section id="homeSection" class="section active" aria-labelledby="homeHeading">
         <div class="title-row">
           <h2 id="homeHeading">Quick Start</h2>
-          <div class="small-muted">Use the World menu to open a company page</div>
+          <div class="muted">Open World → Click any company → View details</div>
         </div>
         <div class="card">
-          This prototype contains 37 business entries. Open <strong>World</strong>, click any company name to view its dedicated page. Use the top <strong>DeySaha</strong> logo to return home at any time.
+          This prototype contains 37 business entries for the DeySaha Empire. Use the World menu to navigate. Each business opens its dedicated section. The DeySaha logo at top returns you to Home.
         </div>
       </section>
     </main>
 
-    <!-- Dynamic Company Sections -->
+    <!-- company sections will be injected here -->
     <div id="companySections"></div>
 
-    <!-- About Section -->
-    <section class="section" id="aboutSection" aria-labelledby="aboutHeading">
+    <!-- About -->
+    <section id="aboutSection" class="section" aria-labelledby="aboutHeading">
       <div class="title-row">
         <h2 id="aboutHeading">About DeySaha</h2>
-        <button class="btn" onclick="goHome()">Back to Home</button>
+        <div class="muted">Back to home: click logo</div>
       </div>
       <div class="card">
-        DeySaha is a planned global multi-venture group. Each sub-company will have its own operations, team and contact details. This prototype demonstrates navigation and visual identity.
+        DeySaha is a planned global multi-venture group. Each sub-company will eventually have its own team, pages and operational details.
       </div>
     </section>
 
-    <!-- Contact Section -->
-    <section class="section" id="contactSection" aria-labelledby="contactHeading">
+    <!-- Contact -->
+    <section id="contactSection" class="section" aria-labelledby="contactHeading">
       <div class="title-row">
         <h2 id="contactHeading">Contact</h2>
-        <button class="btn" onclick="goHome()">Back to Home</button>
+        <div class="muted">Back to home: click logo</div>
       </div>
       <div class="card">
         Email: <strong>contact@deysaha.com</strong><br>
@@ -216,69 +200,66 @@
     </section>
 
     <footer>
-      Prototype • Save this file as <code>index.html</code> and open in the browser.
+      Prototype — Save this file as <code>index.html</code> and open in a browser. Need deployment help? Ask me.
     </footer>
   </div>
 
-  <!-- Backdrop veil & World Panel (outside main container for fixed positioning) -->
-  <div id="backdrop" class="backdrop-veil" aria-hidden="true"></div>
+  <!-- Backdrop & World Panel -->
+  <div id="backdrop" class="backdrop" aria-hidden="true"></div>
 
   <aside id="worldPanel" class="world-panel" role="dialog" aria-modal="false" aria-hidden="true">
     <div class="world-head">Our Businesses — Click any item to open its page</div>
     <ul id="companyList" class="company-list" role="list"></ul>
-    <div style="margin-top:auto; font-size:13px; color:rgba(74,63,54,0.85);">
-      Tip: Use the DeySaha logo at top to return to Home.
-    </div>
+    <div style="margin-top:auto; font-size:13px; color:rgba(74,63,54,0.85);">Tip: Use the DeySaha logo at top to return to Home.</div>
   </aside>
 
   <script>
     /* ============================
-       Data: 37 companies (English)
+       37 Company Names (English)
        ============================ */
     const companies = [
       "Property / Land Business",
       "Bar",
       "Petrol Pump",
-      "Keshar Plant",
-      "Builder",
-      "Political Scientist Services",
-      "House Designer",
-      "Web & App Designer",
-      "Artist Studio",
+      "Keshar Plant (Saffron)",
+      "Builder & Construction",
+      "Political Science Consultancy",
+      "House Designing",
+      "Web & App Development",
+      "Artist & Creative Studio",
       "Fresh Himalayan Water",
-      "Data Server Business",
+      "Data Server & Cloud",
       "Aquarium Fish Business",
       "Premium Book Store",
-      "Clove Plant",
-      "Mushroom Business",
+      "Clove Plantation",
+      "Mushroom Farming",
       "Temple Business",
-      "Premium Cloth Business",
-      "Tea Business (Golden Tips)",
+      "Premium Clothing",
+      "Golden Tips Tea Business",
       "Rare Candy Business",
-      "Japan & Korea Style Schools and University",
+      "Japanese & Korean-style Education Institute",
       "MMA Gym",
       "Ice Cream Business",
       "Bay Leaf Farming",
       "International Port Business",
-      "Cow & Milk Farm (Gosala)",
+      "Cow Sanctuary (Goshala)",
       "Residential Program",
       "Rich Rank Card (Elite Card)",
       "Wedding Hall Business",
       "Tea & Milk Bun (Irani style)",
       "Make DeySaha Empire (HQ)",
       "Magazine & Book Printing",
-      "Colour World (Art materials)",
+      "Colour World (Art Supplies)",
       "Ramain Restaurant",
       "Park Business",
       "4D Cinema Hall",
-      "Crypto Coin (Eonix - EONX)",
+      "Crypto Coin — Eonix (EONX)",
       "3D Museum"
     ];
 
-    const companyListEl = document.getElementById('companyList');
+    const listEl = document.getElementById('companyList');
     const sectionsContainer = document.getElementById('companySections');
 
-    // Create list & sections dynamically
     companies.forEach((name, idx) => {
       // list item
       const li = document.createElement('li');
@@ -286,9 +267,9 @@
       li.setAttribute('role','listitem');
       li.innerHTML = `<span>${idx + 1}. ${name}</span><span style="opacity:.6;font-size:12px">Open</span>`;
       li.addEventListener('click', () => openCompany(idx));
-      companyListEl.appendChild(li);
+      listEl.appendChild(li);
 
-      // section
+      // company section
       const sec = document.createElement('section');
       sec.className = 'section';
       sec.id = 'company-' + idx;
@@ -296,30 +277,24 @@
       sec.innerHTML = `
         <div class="title-row">
           <h2 id="heading-${idx}">${name}</h2>
-          <div>
-            <button class="btn" onclick="goHome()">Back to Home</button>
-          </div>
+          <div class="muted">Use logo to return home</div>
         </div>
         <div class="card">
           <strong>${name}</strong><br><br>
           Status: <strong>Planning</strong><br>
-          Short description: This is a prototype content area for <em>${name}</em>. You can add location, contact email, phone, images, PDF, product list and details here.<br><br>
-          Quick actions:<br>
+          Description: This is a placeholder page for ${name}. You can add address, phone, email, images, PDF, and product/service details here later.<br><br>
+          Quick info:<br>
           • Official name: <code>${name}</code><br>
-          • Contact email: <code>info@deysaha.com</code><br>
-          • Operation: Planning<br><br>
-          <div style="margin-top:10px;">
-            <button class="btn" onclick="alert('Edit feature coming soon')">Edit Details</button>
-            <button class="btn" onclick="alert('Add media feature coming soon')">Add Image / PDF</button>
-          </div>
+          • Contact: <code>info@deysaha.com</code><br>
+          • Operation: Planning
         </div>
       `;
       sectionsContainer.appendChild(sec);
     });
 
-    /* =============================
-       UI Controls: world panel + backdrop
-       ============================= */
+    /* ============================
+       UI controls
+       ============================ */
     const worldBtn = document.getElementById('worldBtn');
     const worldPanel = document.getElementById('worldPanel');
     const backdrop = document.getElementById('backdrop');
@@ -343,53 +318,24 @@
       backdrop.setAttribute('aria-hidden','true');
       worldPanel.setAttribute('aria-modal','false');
     }
-    worldBtn.addEventListener('click', (e) => {
-      const isOpen = worldPanel.classList.contains('open');
-      if(isOpen) closeWorld(); else openWorld();
+
+    worldBtn.addEventListener('click', () => {
+      const open = worldPanel.classList.contains('open');
+      if(open) closeWorld(); else openWorld();
     });
-    // close when clicking backdrop
+
     backdrop.addEventListener('click', closeWorld);
 
-    // brand -> go home
     brandBtn.addEventListener('click', (e) => { e.preventDefault(); goHome(); });
 
-    // about/contact buttons
-    aboutBtn.addEventListener('click', () => {
-      hideAllSections();
-      document.getElementById('aboutSection').classList.add('active');
-      window.scrollTo({top:0, behavior:'smooth'});
-    });
-    contactBtn.addEventListener('click', () => {
-      hideAllSections();
-      document.getElementById('contactSection').classList.add('active');
-      window.scrollTo({top:0, behavior:'smooth'});
-    });
+    aboutBtn.addEventListener('click', () => { hideAll(); document.getElementById('aboutSection').classList.add('active'); closeWorld(); window.scrollTo({top:0,behavior:'smooth'}); });
+    contactBtn.addEventListener('click', () => { hideAll(); document.getElementById('contactSection').classList.add('active'); closeWorld(); window.scrollTo({top:0,behavior:'smooth'}); });
 
-    // hide all sections helper
-    function hideAllSections(){
-      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-    }
+    function hideAll(){ document.querySelectorAll('.section').forEach(s => s.classList.remove('active')); }
+    function goHome(){ hideAll(); document.getElementById('homeSection').classList.add('active'); closeWorld(); window.scrollTo({top:0,behavior:'smooth'}); }
+    function openCompany(idx){ hideAll(); const el = document.getElementById('company-' + idx); if(el){ el.classList.add('active'); closeWorld(); setTimeout(()=> el.scrollIntoView({behavior:'smooth'}), 70); } }
 
-    // goHome
-    function goHome(){
-      hideAllSections();
-      document.getElementById('homeSection').classList.add('active');
-      closeWorld();
-      window.scrollTo({top:0, behavior:'smooth'});
-    }
-
-    // open a company
-    function openCompany(idx){
-      hideAllSections();
-      const el = document.getElementById('company-' + idx);
-      if(el){
-        el.classList.add('active');
-        closeWorld();
-        setTimeout(()=> el.scrollIntoView({behavior:'smooth'}), 70);
-      }
-    }
-
-    // initial state
+    // initial
     goHome();
   </script>
 </body>
