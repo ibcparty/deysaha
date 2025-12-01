@@ -116,6 +116,44 @@
     }
     .company-item:hover{ transform: translateX(8px); box-shadow: 0 10px 26px rgba(0,0,0,0.08); background:linear-gradient(90deg, rgba(243,233,225,1), rgba(250,245,240,1)); }
 
+    .quick-start-box {
+    width: 100%;
+    padding: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 2px solid #d2c7be;
+    background: #f5ebe3;
+}
+
+.slideshow-container {
+    position: relative;
+    max-height: 260px;
+    height: 260px;
+}
+
+.slide {
+    display: none;
+    height: 100%;
+}
+
+.slide-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(92%);
+    border-radius: 12px;
+}
+
+/* Fade Animation */
+.fade {
+    animation-name: fadeEffect;
+    animation-duration: 1.5s;
+}
+
+@keyframes fadeEffect {
+    from { opacity: .4 }
+    to { opacity: 1 }
+}
     /* small helper */
     .muted { color: rgba(74,63,54,0.8); font-size:13px; }
 
@@ -166,8 +204,25 @@
           <h2 id="homeHeading">Quick Start</h2>
           <div class="muted">Open World → Click any company → View details</div>
         </div>
-        <div class="card">
-          This prototype contains 37 business entries for the DeySaha Empire. Use the World menu to navigate. Each business opens its dedicated section. The DeySaha logo at top returns you to Home.
+        <div id="quick-start" class="quick-start-box">
+    <div class="slideshow-container">
+
+        <!-- Slide 1 -->
+        <div class="slide fade">
+            <img src="img/company1.jpg" class="slide-img">
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="slide fade">
+            <img src="img/company2.jpg" class="slide-img">
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="slide fade">
+            <img src="img/company3.jpg" class="slide-img">
+        </div>
+
+    </div>
         </div>
       </section>
     </main>
@@ -353,6 +408,21 @@
 
     // initial
     goHome();
+
+ 
+let slideIndex = 0;
+showSlides();
+function showSlides() {
+    let i;
+    let slides = document.getElementsByClassName("slide");
+    for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";  
+    }
+    slideIndex++;
+    if (slideIndex > slides.length) {slideIndex = 1}    
+    slides[slideIndex-1].style.display = "block";  
+    setTimeout(showSlides, 3000);
+}
   </script>
 </body>
 </html>
